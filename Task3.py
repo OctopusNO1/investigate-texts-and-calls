@@ -53,25 +53,22 @@ to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
 
-# get numbers called by people in Bangalore with no duplicates
-numbers_called_Bangalore = []           # calls from fixed lines in Bangalore
+# get numbers called by people in Bangalore
+numbers_called_Bangalore = []          
 for call in calls:
-    if call[0].startswith('(080)') and (call[1] not in numbers_called_Bangalore):
+    if call[0].startswith('(080)'):     # calls from fixed lines in Bangalore
         numbers_called_Bangalore.append(call[1])
 # get the list of the area codes and mobile prefixes 
 codes_list = []
-count = 0                               # both calls from and to other fixed lines in Bangalore
 for num in numbers_called_Bangalore:    
     if num.startswith('('):
-        if num.startswith('(080)'):     # calls to other fixed lines in Bangalore
-            count += 1  
         end = num.find(')')             # area codes vary in length, in ()
         codes_list.append(num[1:end])   
-    if num.find(' ') != -1:
+    if num.find(' ') != -1: 
         codes_list.append(num[0:4])     # mobile prefix is the first four digits
-# print out one per line in lexicographic order
+# print out one per line in lexicographic order with no duplicates
 print("The numbers called by people in Bangalore have codes:")
-for code in sorted(codes_list):
+for code in sorted(set(codes_list)):    # in lexicographic order with no duplicates
     print(code)   
-print("{:.1f} percent of calls from fixed lines in Bangalore are callsto other fixed lines in Bangalore.".format(count/len(codes_list)*100))
-
+percent = codes_list.count('080')/len(codes_list)*100
+print("{:.2f} percent of calls from fixed lines in Bangalore are callsto other fixed lines in Bangalore.".format(percent))

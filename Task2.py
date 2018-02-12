@@ -35,17 +35,17 @@ dictionary. If the key is already in the dictionary, add the value to
 the key's existing value. If the key does not already appear in the
 dictionary, add it and set its value to be the given value.
 """
+
+def add_time(num, time):
+    if num in num_time:
+        num_time[num] += int(time)               # call[3] is string
+    else:
+        num_time[num] = int(time)
 num_time = {}       # telephone_number : during_time
 # get num_time dict from calls
 for call in calls:
-    if call[0] in num_time:
-        num_time[call[0]] += int(call[3])   # call[3] is string
-    else:
-        num_time[call[0]] = int(call[3])
-    if call[1] in num_time:
-        num_time[call[1]] += int(call[3])
-    else:
-        num_time[call[1]] = int(call[3])
+    add_time(call[0], call[3])
+    add_time(call[1], call[3])
 # get the max_time from num_time dict
 max_time = 0
 for num in num_time:
@@ -55,3 +55,6 @@ for num in num_time:
 for num in num_time:
     if num_time[num] == max_time:
         print("<" + num + "> spent the longest time, <" + str(max_time) + "> seconds, on the phone during September 2016.")
+
+
+

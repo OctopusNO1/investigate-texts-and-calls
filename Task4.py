@@ -33,23 +33,21 @@ Print a message:
 <list of numbers>
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
-# get the list of numbers that make outgoing calls
-telephone_numbers = []
+def num_remove(num, numbers):
+    if num in numbers:
+        numbers.remove(num)
+# get the numbers that make outgoing calls
+numbers = set([])
 for call in calls:
-    if call[0] not in telephone_numbers:
-        telephone_numbers.append(call[0])
-# remove the numbers that send texts,receive texts or receive incoming calls
-for text in texts:
-    if text[0] in telephone_numbers:
-        telephone_numbers.remove(text[0])
-    if text[1] in telephone_numbers:
-        telephone_numbers.remove(text[1])
+    numbers.add(call[0])
+# remove the numbers that receive incoming calls
 for call in texts:
-    if call[1] in telephone_numbers:
-        telephone_numbers.remove(call[1])
+    num_remove(call[1], numbers)
+# remove the numbers that send texts,receive texts 
+for text in texts:
+    num_remove(text[0], numbers)
+    num_remove(text[1], numbers)
 # print out one per line in lexicographic order with no duplicates
 print("These numbers could be telemarketers: ")
-for num in sorted(telephone_numbers):
+for num in sorted(numbers):
     print(num)
-
-
