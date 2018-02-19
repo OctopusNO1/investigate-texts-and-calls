@@ -41,7 +41,7 @@ numbers = set([])
 for call in calls:
     numbers.add(call[0])
 # remove the numbers that receive incoming calls
-for call in texts:
+for call in calls:
     num_remove(call[1], numbers)
 # remove the numbers that send texts,receive texts 
 for text in texts:

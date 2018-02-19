@@ -38,23 +38,13 @@ dictionary, add it and set its value to be the given value.
 
 def add_time(num, time):
     if num in num_time:
-        num_time[num] += int(time)               # call[3] is string
+        num_time[num] += int(time)  # call[3] is string
     else:
         num_time[num] = int(time)
-num_time = {}       # telephone_number : during_time
-# get num_time dict from calls
+num_time = {}                       # telephone_number : during_time
 for call in calls:
     add_time(call[0], call[3])
     add_time(call[1], call[3])
-# get the max_time from num_time dict
-max_time = 0
-for num in num_time:
-    if num_time[num] > max_time:
-        max_time = num_time[num]
-# get the corresponding numbers
-for num in num_time:
-    if num_time[num] == max_time:
-        print("<" + num + "> spent the longest time, <" + str(max_time) + "> seconds, on the phone during September 2016.")
-
-
+sorted_dict = sorted(num_time.items(), key=lambda d: d[1], reverse=True)
+print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(sorted_dict[0][0], sorted_dict[0][1]))
 
